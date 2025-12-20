@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Search, Bell, User } from 'lucide-react'
 
-export default function AdminHeader() {
+export default function AdminHeader({ user }: { user: string }) {
     const [searchQuery, setSearchQuery] = useState('')
 
     return (
@@ -28,7 +28,7 @@ export default function AdminHeader() {
 
                 <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
                     <div className=" hidden sm:block ">
-                        <span className="text-sm font-semibold text-gray-900">Admin User</span>
+                        <span className="text-sm font-semibold text-gray-900">{user}</span>
                         <br />
                         <span className="text-xs text-gray-500">Administrator</span>
                     </div>

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Button from '../Button';
 import { FaTimes, FaBars } from "react-icons/fa";
+import Image from 'next/image';
 
 // Define the type for navigation items
 interface NavItem {
@@ -58,8 +59,8 @@ export default function Header() {
         >
             {/* Logo */}
             <div className="flex items-center text-xl font-bold gap-2 text-white">
-                <div className='w-8 h-8 rounded-full bg-[var(--color-orange)]'></div>
-                <h1 className="text-xl font-bold">Quwah Zone</h1>
+                <Image src="/load.png" alt="Quwah Zone" width={50} height={50} />
+                <h4 className=" font-bold ">Quwah Zone</h4>
             </div>
 
             {/* Desktop Links */}

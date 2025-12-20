@@ -2,13 +2,16 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { LayoutDashboard, FileText, Menu, X, LogOut } from 'lucide-react'
+import { authService } from '@/libs/auth'
+import { useRouter } from 'next/navigation'
 
 export default function AdminSidebar() {
     const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
 
     const navItems = [
-        { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-        { name: 'Blogs', href: '/admin/blogs', icon: FileText },
+        { name: 'Blogs', href: '/admin', icon: FileText },
+        { name: 'Categories', href: '/admin/categories', icon: LayoutDashboard },
     ]
 
     return (
@@ -53,7 +56,14 @@ export default function AdminSidebar() {
                 </nav>
 
                 <div className="p-4 border-t border-gray-800">
-                    <button className="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-500/10 rounded-lg w-full transition-colors">
+                    <button className="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-500/10 rounded-lg w-full transition-colors"
+                        onClick={async () => {
+                            const { error } = await authService.signOut();
+                            if (!error) {
+                                router.push('/login');
+                            }
+                        }}
+                    >
                         <LogOut size={20} />
                         <span className="font-medium">Logout</span>
                     </button>

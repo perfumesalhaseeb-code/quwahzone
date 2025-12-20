@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -10,6 +11,7 @@
   --color-black: #000000ff;
 
   --font-sans: 'Roboto', sans-serif;
+  --font-heading: 'Bebas Neue', sans-serif;
 
   --spacing-section: 6rem;
   --spacing-card: 1.5rem;
@@ -21,6 +23,16 @@
     color: var(--color-dark);
     background-color: var(--color-white);
     padding-top: 20px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
   }
 
   h1 {

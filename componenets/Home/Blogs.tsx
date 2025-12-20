@@ -67,7 +67,7 @@ export default function Blogs() {
 
     return (
         <div className="px-6 md:px-20 py-24 bg-[var(--color-gray)]">
-            <h2 className="text-center text-gray-800 pb-16 text-3xl font-bold">
+            <h2 className="text-center text-gray-800 pb-16  font-bold">
                 Latest from our <span className="text-[var(--color-orange)]">Blog</span>
             </h2>
 

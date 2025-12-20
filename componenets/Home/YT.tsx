@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function YT() {
     const videos = [
-        "https://www.youtube.com/embed/eaRQF-7hhmo", // 10 Min Full Body Workout
-        "https://www.youtube.com/embed/UItWltVZZmE", // 30 Min Full Body HIIT
-        "https://www.youtube.com/embed/itJE4necGu4"  // 15 Min Morning Workout
+        "https://www.youtube.com/embed/6WvHMNfH3ao", // Surah Ar-Rahman - Mishary Alafasy
+        "https://www.youtube.com/embed/KTYitGaV16M", // Surah Al-Baqarah - Full
+        "https://www.youtube.com/embed/2_YI0N37-v4"  // Surah Yasin - Heart Soothing
     ];
 
     return (

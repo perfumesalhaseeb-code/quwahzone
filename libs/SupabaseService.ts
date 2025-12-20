@@ -196,7 +196,18 @@ export class CategoryService {
       throw err;
     }
   }
+
+  async deleteCategory(id: number): Promise<void> {
+    const { error } = await supabase
+      .from('categories')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  }
 }
+
+export const categoryService = new CategoryService();
 
 export async function uploadFilesToBucket(files: File[]): Promise<string[]> {
   const urls: string[] = [];
