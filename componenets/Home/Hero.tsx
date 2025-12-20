@@ -1,0 +1,29 @@
+import React from 'react'
+import Button from '../Button'
+
+export default function Hero() {
+    return (
+        <div className='w-full h-screen min-h-[600px] flex flex-col items-start justify-center gap-8 px-6 md:px-20'
+            style={{
+                backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1770&auto=format&fit=crop")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundAttachment: 'fixed'
+            }}>
+            <div className="max-w-3xl animate-fade-in-up">
+                <h1 className='text-left leading-tight text-white'>
+                    UNLEASH YOUR <br />
+                    <span className="text-[var(--color-orange)]">TRUE POTENTIAL</span>
+                </h1>
+                <p className='text-left text-gray-200'>
+                    Experience world-class training designed to push your limits.
+                    Whether you're a beginner or a pro, Quwah Zone is your ultimate destination for strength and resilience.
+                </p>
+                <div className="flex gap-4">
+                    <Button text="Start Journey" onClick={() => { console.log("Start Journey") }} disabled={false} />
+
+                </div>
+            </div>
+        </div>
+    )
+}

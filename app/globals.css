@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-dark: #21262aff;
+  --color-blue: #1b2435ff;
+  --color-orange: #e8671fff;
+  --color-orange-light: #d14900ff;
+  --color-white: #fefefeff;
+  --color-gray: #e5e8e9ff;
+  --color-black: #000000ff;
+
+  --font-sans: 'Roboto', sans-serif;
+
+  --spacing-section: 6rem;
+  --spacing-card: 1.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    padding-top: 20px;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  h1 {
+    @apply text-4xl md:text-6xl font-bold mb-4;
+  }
+
+  h2 {
+    @apply text-3xl md:text-5xl font-bold mb-4;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-bold mb-3;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-bold mb-2;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl font-bold mb-2;
+  }
+
+  p {
+    @apply text-base md:text-lg leading-relaxed text-gray-600 mb-4;
+  }
 }
