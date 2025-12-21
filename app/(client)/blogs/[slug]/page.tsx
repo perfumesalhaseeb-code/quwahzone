@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { blogsService, Blog } from "@/libs/SupabaseService";
-import { Calendar, User, ArrowLeft } from "lucide-react";
+import { Calendar, User, ArrowLeft, Eye } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,6 +11,7 @@ export default function BlogDetailsPage() {
     const { slug } = useParams();
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
+    const [blogId, setBlogId] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -18,6 +19,8 @@ export default function BlogDetailsPage() {
             try {
                 const data = await blogsService.getBlogBySlug(slug as string);
                 setBlog(data);
+                // setBlogId(data.id);
+                setBlogId(data?.id || null);
             } catch (error) {
                 console.error("Error fetching blog:", error);
             } finally {
@@ -27,6 +30,12 @@ export default function BlogDetailsPage() {
 
         fetchBlog();
     }, [slug]);
+
+    useEffect(() => {
+        if (blogId) {
+            blogsService.AddViews(blogId);
+        }
+    }, [blogId]);
 
     if (loading) {
         return (
@@ -69,8 +78,8 @@ export default function BlogDetailsPage() {
                             <span>{new Date().toLocaleDateString()}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <User size={16} />
-                            <span>Admin</span>
+                            <Eye size={16} />
+                            <span>{blog.views}</span>
                         </div>
                     </div>
                     <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text-gray-900">

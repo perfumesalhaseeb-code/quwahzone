@@ -83,10 +83,10 @@ export default function CategoriesPage() {
     }
 
     return (
-        <div className="mt-[70px] max-w-4xl mx-auto p-8">
+        <div className="mt-[70px] max-w-7xl mx-auto p-8">
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-[var(--color-dark)]">Categories</h1>
-                <p className="text-gray-500 text-sm mt-1">Manage your blog categories</p>
+                <h1 className=" font-bold text-[var(--color-dark)]">Categories</h1>
+                <p className="text-gray-500  mt-1">Manage your blog categories</p>
             </div>
 
             {/* Add New Category */}

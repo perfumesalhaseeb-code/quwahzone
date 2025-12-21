@@ -120,6 +120,7 @@ function WriteBlogContent() {
                 description,
                 category: catigory,
                 image: imageUrl,
+                views: 0,
             };
 
             if (editId) {

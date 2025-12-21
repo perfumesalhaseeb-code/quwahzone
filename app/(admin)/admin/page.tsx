@@ -50,8 +50,8 @@ export default function AdminDashboard() {
         <div className="mt-[70px] max-w-7xl mx-auto p-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Blogs</h1>
-                    <p className="text-gray-500 text-sm mt-1">Manage your blog posts here</p>
+                    <h1 className="t font-bold text-gray-900">Blogs</h1>
+                    <p className="text-gray-500  mt-1">Manage your blog posts here</p>
                 </div>
                 <Link href="/admin/write">
                     <button className="flex items-center gap-2 bg-[var(--color-orange)] text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium shadow-sm">
@@ -69,6 +69,7 @@ export default function AdminDashboard() {
                                 <th className="px-6 py-4">Title</th>
                                 <th className="px-6 py-4">Category</th>
                                 <th className="px-6 py-4">Date</th>
+                                <th className="px-6 py-4">Views</th>
                                 <th className="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
@@ -102,6 +103,9 @@ export default function AdminDashboard() {
                                                 Wait, I can cast it to any to access created_at safely for display.
                                             */}
                                             {(blog as any).created_at ? new Date((blog as any).created_at).toLocaleDateString() : "N/A"}
+                                        </td>
+                                        <td className="px-6 py-4 text-sm text-gray-600">
+                                            {blog?.views}
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-3">

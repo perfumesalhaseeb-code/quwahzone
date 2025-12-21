@@ -55,7 +55,7 @@ export default function AdminLayout({
   }
 
   return (
-    <>
+    <div >
       <AdminSidebar />
       <AdminHeader user={user} />
       <div className="ml-0 md:ml-[245px]"
@@ -63,6 +63,6 @@ export default function AdminLayout({
       >
         {children}
       </div>
-    </>
+    </div>
   );
 }

@@ -11,7 +11,7 @@ export default function Hero() {
                 backgroundAttachment: 'fixed'
             }}>
             <div className="max-w-3xl animate-fade-in-up">
-                <h1 className='text-left leading-tight text-white'>
+                <h1 className='text-left leading-tight text-white text-7xl'>
                     UNLEASH YOUR <br />
                     <span className="text-[var(--color-orange)]">TRUE POTENTIAL</span>
                 </h1>

@@ -66,9 +66,9 @@ export default function Myth() {
     return (
         <section className="px-6 md:px-20 py-24 bg-[var(--color-blue)]">
             <div className="max-w-7xl mx-auto">
-                <h2 className="font-black text-4xl md:text-6xl pb-16 text-center uppercase italic tracking-tighter text-white">
+                <h1 className=" font-black pb-16 text-center uppercase italic  text-white">
                     Stop believing <span className="text-red-500">lies</span>
-                </h2>
+                </h1>
 
                 <div className="flex flex-col md:flex-row gap-12 lg:gap-20">
                     {CARDS.map((card, index) => (

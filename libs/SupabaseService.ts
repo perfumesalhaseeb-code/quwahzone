@@ -15,6 +15,7 @@ export interface Blog {
   category: string;
   content: string;
   slug: string;
+  views: number | null;
 }
 
 export interface CategoryInput {
@@ -47,26 +48,47 @@ export class blogs {
   async getAllBlogs(): Promise<Blog[]> {
     const { data, error } = await supabase
       .from('blogs')
-      .select('*')
+      .select(`
+      *,
+      views (
+        views
+      )
+    `)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
-    return data || [];
+
+    // flatten views (optional but recommended)
+    return (data || []).map(blog => ({
+      ...blog,
+      views: blog.views?.[0]?.views ?? 0
+    }));
   }
+
 
   async getBlogBySlug(slug: string): Promise<Blog | null> {
     const { data, error } = await supabase
       .from('blogs')
-      .select('*')
+      .select(`
+      *,
+      views (
+        views
+      )
+    `)
       .eq('slug', slug)
-      .single();
+      .maybeSingle(); // safer than .single() if row may not exist
 
-    if (error) {
-      if (error.code === 'PGRST116') return null;
-      throw error;
-    }
-    return data;
+    if (error) throw error;
+
+    if (!data) return null;
+
+    // Flatten views
+    return {
+      ...data,
+      views: data.views?.[0]?.views ?? 0
+    };
   }
+
 
   async getBlogById(id: number): Promise<Blog | null> {
     const { data, error } = await supabase
@@ -88,9 +110,11 @@ export class blogs {
     // Debug: Check if blog exists
     const { data: exists, error: existError } = await supabase
       .from('blogs')
-      .select('id')
+      .select('id, image')
       .eq('id', id)
       .single();
+
+    const existingImage = exists?.image;
 
     console.log('Blog existence check:', { exists, existError });
 
@@ -101,6 +125,9 @@ export class blogs {
 
     if (imageUrl) {
       updateData.image = imageUrl;
+      if (existingImage) {
+        await deleteImagesFromBucket([existingImage]);
+      }
     }
 
     const { data, error } = await supabase
@@ -129,6 +156,14 @@ export class blogs {
       }
     }
 
+    const { error: viewsError } = await supabase
+      .from('views')
+      .delete()
+      .eq('blog', id);
+
+    if (viewsError) throw viewsError;
+
+
     const { error } = await supabase
       .from('blogs')
       .delete()
@@ -136,9 +171,39 @@ export class blogs {
 
     if (error) throw error;
   }
-}
 
-export const blogsService = new blogs();
+  async AddViews(id: number): Promise<void> {
+    // 1️⃣ Get current views
+    const { data, error: fetchError } = await supabase
+      .from('views')
+      .select('views')
+      .eq('blog', id)
+      .maybeSingle();
+
+    if (fetchError) throw fetchError;
+
+    const currentViews = data?.views ?? 0;
+
+    // 2️⃣ Update views by adding 1
+    const { error: updateError } = await supabase
+      .from('views')
+      .update({ views: currentViews + 1 })
+      .eq('blog', id);
+
+    if (updateError) throw updateError;
+
+    // 3️⃣ If row does not exist, insert it
+    if (!data) {
+      const { error: insertError } = await supabase
+        .from('views')
+        .insert({ blog: id, views: 1 });
+
+      if (insertError) throw insertError;
+    }
+  }
+
+
+}
 
 export class CategoryService {
   async addCategory(category: CategoryInput, imageUrl: string = ''): Promise<Category> {
@@ -206,6 +271,8 @@ export class CategoryService {
     if (error) throw error;
   }
 }
+
+export const blogsService = new blogs();
 
 export const categoryService = new CategoryService();
 
