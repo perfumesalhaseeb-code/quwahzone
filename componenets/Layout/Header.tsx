@@ -48,6 +48,7 @@ export default function Header() {
     const items: NavItem[] = [
         { name: "Home", link: "/" },
         { name: "Blogs", link: "/blogs" },
+        { name: "Programs", link: "/programs" },
         { name: "About", link: "/about" }
     ];
 
