@@ -9,7 +9,7 @@ export default function AboutPage() {
         <div className="w-full">
             {/* Hero Section */}
 
-            <HeroSection backgroundImage="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop">
+            <HeroSection backgroundImage="/Images/QuwahZoneHeroAbout.jpeg">
                 <h1 className="text-white text-6xl md:text-8xl mb-4">ABOUT <span className="text-[var(--color-orange)]">QUWAH ZONE</span></h1>
                 <p className="text-gray-200 text-xl max-w-2xl">
                     Building strength, character, and trust through authentic training.

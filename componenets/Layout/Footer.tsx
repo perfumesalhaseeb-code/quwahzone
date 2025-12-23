@@ -7,7 +7,7 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center gap-10">
                 {/* Brand Section */}
                 <div className="text-center md:text-left  ">
-                    <Image src="/load.png" alt="Quwah Zone" width={100} height={100} className='mx-auto' />
+                    <Image src="/load.png" alt="Quwah Zone" width={100} height={100} className='mx-auto md:mx-0' />
                     <h2 className="text-3xl font-bold mb-2 mt-6 text-[var(--color-orange)]">Quwah Zone</h2>
                     <p className="text-gray-400 max-w-xs mx-auto md:mx-0">
                         Empowering you to achieve your fitness goals with expert guidance.

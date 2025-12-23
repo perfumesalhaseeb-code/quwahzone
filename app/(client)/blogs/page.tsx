@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { blogsService, Blog, CategoryService, Category } from "@/libs/SupabaseService";
+import HeroSection from "@/componenets/HeroSection";
 
 const categoryService = new CategoryService();
 
@@ -50,21 +51,17 @@ export default function Page() {
     return (
         <div>
             {/* Top section */}
-            <div className='w-full h-[300px] flex flex-col items-start justify-center gap-8 px-6 md:px-20 relative '
-                style={{
-                    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1770&auto=format&fit=crop")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundAttachment: 'fixed'
-                }}>
-                <div className="max-w-3xl animate-fade-in-up">
-                    <h1 className='text-left leading-tight text-white'>
-                        THE QUWAH BLOGS
-                    </h1>
-                    <p className='text-left text-gray-200'>
-                        Science based advice for a healthy lifestyle
-                    </p>
-                </div>
+            <div className="relative">
+                <HeroSection backgroundImage="/Images/QuwahZoneHeroBlog.png">
+                    <div className="max-w-3xl animate-fade-in-up">
+                        <h1 className='text-left leading-tight text-white'>
+                            THE QUWAH BLOGS
+                        </h1>
+                        <p className='text-left text-gray-200'>
+                            Science based advice for a healthy lifestyle
+                        </p>
+                    </div>
+                </HeroSection>
 
                 {/* Categories Bar */}
                 <div className='w-[90%] md:w-[80%] bg-white font-bold p-4 absolute bottom-[-30px] left-1/2 -translate-x-1/2 shadow-lg overflow-x-auto no-scrollbar rounded-lg'>

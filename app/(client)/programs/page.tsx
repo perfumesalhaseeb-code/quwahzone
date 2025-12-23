@@ -8,7 +8,7 @@ export default function ProgramsPage() {
     return (
         <div className="w-full min-h-screen bg-gray-50">
             {/* Hero Section */}
-            <HeroSection backgroundImage="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=2070&auto=format&fit=crop">
+            <HeroSection backgroundImage="/Images/QuwahZoneHeroPrograms.jpeg">
                 <h1 className="text-white text-6xl md:text-8xl mb-4">TRAINING <span className="text-[var(--color-orange)]">PROGRAMS</span></h1>
                 <p className="text-gray-300 text-xl max-w-2xl">
                     A structured path from beginner to elite. Choose your level and start your ascent.

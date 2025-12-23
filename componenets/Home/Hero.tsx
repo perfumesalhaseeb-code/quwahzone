@@ -5,7 +5,7 @@ export default function Hero() {
     return (
         <div className='w-full h-screen min-h-[600px] flex flex-col items-start justify-center gap-8 px-6 md:px-20'
             style={{
-                backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1770&auto=format&fit=crop")',
+                backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/Images/QuwahZoneHeroMain.jpeg")',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundAttachment: 'fixed'
