@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { PROGRAMS } from '@/data/programs';
-import { CheckCircle2, Dumbbell, Target, AlertCircle } from 'lucide-react';
+import { CheckCircle2, Calendar, Target, AlertCircle, Clock } from 'lucide-react';
 import StartProgramButton from '@/componenets/Programs/StartProgramButton';
 
 export function generateStaticParams() {
@@ -42,7 +42,7 @@ export default async function ProgramDetailsPage({ params }: { params: Promise<{
             {/* Main Content Grid */}
             <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-                {/* Left Column: Overview & Benefits */}
+                {/* Left Column: Overview & Schedule */}
                 <div className="lg:col-span-2 space-y-12">
 
                     {/* Overview */}
@@ -69,31 +69,82 @@ export default async function ProgramDetailsPage({ params }: { params: Promise<{
                         </div>
                     </section>
 
-                    {/* Workout Structure */}
+                    {/* 30-Day Schedule */}
                     <section>
                         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-                            <Dumbbell className="text-[var(--color-orange)]" />
-                            Workout Structure
+                            <Calendar className="text-[var(--color-orange)]" />
+                            30-Day Schedule
                         </h2>
-                        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-                            <div className="grid grid-cols-12 bg-gray-900 text-white p-4 font-bold text-sm uppercase tracking-wider">
-                                <div className="col-span-6 md:col-span-5">Exercise</div>
-                                <div className="col-span-3 md:col-span-2 text-center">Sets</div>
-                                <div className="col-span-3 md:col-span-2 text-center">Reps</div>
-                                <div className="hidden md:block md:col-span-3">Notes</div>
-                            </div>
-                            <div className="divide-y divide-gray-100">
-                                {program.exercises.map((exercise, idx) => (
-                                    <div key={idx} className="grid grid-cols-12 p-4 items-center hover:bg-gray-50 transition-colors">
-                                        <div className="col-span-6 md:col-span-5 font-medium text-gray-900">{exercise.name}</div>
-                                        <div className="col-span-3 md:col-span-2 text-center text-gray-600">{exercise.sets}</div>
-                                        <div className="col-span-3 md:col-span-2 text-center text-gray-600">{exercise.reps}</div>
-                                        <div className="col-span-12 md:col-span-3 text-sm text-gray-500 mt-2 md:mt-0 italic">
-                                            {exercise.notes}
-                                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {program.schedule.map((day) => (
+                                <div
+                                    key={day.day}
+                                    className={`rounded-xl p-6 border transition-all duration-300 ${day.isRestDay
+                                        ? 'bg-gray-50 border-gray-100 opacity-80'
+                                        : 'bg-white border-gray-200 hover:shadow-md hover:border-[var(--color-orange)]'
+                                        }`}
+                                >
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className={`text-sm font-bold uppercase tracking-wider ${day.isRestDay ? 'text-gray-400' : 'text-[var(--color-orange)]'}`}>
+                                            Day {day.day}
+                                        </span>
+                                        {day.isRestDay && <Clock size={16} className="text-gray-400" />}
                                     </div>
-                                ))}
-                            </div>
+
+                                    <h3 className={`text-xl font-bold mb-4 ${day.isRestDay ? 'text-gray-500' : 'text-gray-900'}`}>
+                                        {day.title}
+                                    </h3>
+
+                                    {day.sections ? (
+                                        <div className="space-y-6">
+                                            {day.sections.map((section, sIdx) => (
+                                                <div key={sIdx}>
+                                                    <h4 className="text-sm font-bold text-[var(--color-orange)] uppercase tracking-wide mb-3 border-b border-gray-100 pb-1">
+                                                        {section.title}
+                                                    </h4>
+                                                    <ul className="space-y-3">
+                                                        {section.exercises.map((ex, eIdx) => (
+                                                            <li key={eIdx} className="text-sm text-gray-700">
+                                                                <div className="flex justify-between items-start">
+                                                                    <span className="font-medium">{ex.name}</span>
+                                                                    <span className="font-bold text-gray-900 bg-gray-100 px-2 py-0.5 rounded text-xs whitespace-nowrap">
+                                                                        {ex.sets} x {ex.reps}
+                                                                    </span>
+                                                                </div>
+                                                                {ex.notes && (
+                                                                    <p className="text-xs text-gray-500 mt-0.5 italic">
+                                                                        {ex.notes}
+                                                                    </p>
+                                                                )}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            ))}
+                                            {day.challengeLine && (
+                                                <div className="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-100 text-center">
+                                                    <p className="text-sm font-bold text-[var(--color-orange)] italic">
+                                                        "{day.challengeLine}"
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : !day.isRestDay ? (
+                                        <ul className="space-y-2">
+                                            {day.exercises.map((ex, idx) => (
+                                                <li key={idx} className="text-sm text-gray-600 flex justify-between">
+                                                    <span>{ex.name}</span>
+                                                    <span className="font-medium text-gray-400">{ex.sets} x {ex.reps}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-sm text-gray-500 italic">
+                                            Take this time to recover. Light activity only.
+                                        </p>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     </section>
 
