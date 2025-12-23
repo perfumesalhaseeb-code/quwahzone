@@ -2,25 +2,19 @@
 import React from 'react';
 import { Target, User, Shield, Users, Heart, CheckCircle } from 'lucide-react';
 import Button from '@/componenets/Button';
+import HeroSection from '@/componenets/HeroSection';
 
 export default function AboutPage() {
     return (
         <div className="w-full">
             {/* Hero Section */}
-            <div
-                className="w-full h-[60vh] min-h-[400px] flex flex-col items-center justify-center text-center px-6 relative"
-                style={{
-                    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundAttachment: 'fixed'
-                }}
-            >
+
+            <HeroSection backgroundImage="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop">
                 <h1 className="text-white text-6xl md:text-8xl mb-4">ABOUT <span className="text-[var(--color-orange)]">QUWAH ZONE</span></h1>
                 <p className="text-gray-200 text-xl max-w-2xl">
                     Building strength, character, and trust through authentic training.
                 </p>
-            </div>
+            </HeroSection>
 
             {/* Mission Section */}
             <section className="py-20 px-6 md:px-20 bg-white">

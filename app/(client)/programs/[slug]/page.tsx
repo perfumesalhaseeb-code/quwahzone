@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { PROGRAMS } from '@/data/programs';
 import { CheckCircle2, Calendar, Target, AlertCircle, Clock } from 'lucide-react';
 import StartProgramButton from '@/componenets/Programs/StartProgramButton';
+import HeroSection from '@/componenets/HeroSection';
+import DayAccordion from '@/componenets/Programs/DayAccordion';
 
 export function generateStaticParams() {
     return PROGRAMS.map((program) => ({
@@ -21,15 +23,7 @@ export default async function ProgramDetailsPage({ params }: { params: Promise<{
     return (
         <div className="w-full min-h-screen bg-white">
             {/* Hero Section */}
-            <div
-                className="w-full h-[60vh] min-h-[400px] flex flex-col items-center justify-center text-center px-6 relative"
-                style={{
-                    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1517963879466-e1b54ebd6694?q=80&w=2069&auto=format&fit=crop")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundAttachment: 'fixed'
-                }}
-            >
+            <HeroSection backgroundImage="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop">
                 <div className="inline-block px-4 py-1 rounded-full text-sm font-bold tracking-wider uppercase bg-[var(--color-orange)] text-white mb-4">
                     Level {program.id}
                 </div>
@@ -37,7 +31,7 @@ export default async function ProgramDetailsPage({ params }: { params: Promise<{
                 <p className="text-gray-200 text-xl max-w-2xl">
                     {program.description}
                 </p>
-            </div>
+            </HeroSection>
 
             {/* Main Content Grid */}
             <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -75,75 +69,9 @@ export default async function ProgramDetailsPage({ params }: { params: Promise<{
                             <Calendar className="text-[var(--color-orange)]" />
                             30-Day Schedule
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 gap-4">
                             {program.schedule.map((day) => (
-                                <div
-                                    key={day.day}
-                                    className={`rounded-xl p-6 border transition-all duration-300 ${day.isRestDay
-                                        ? 'bg-gray-50 border-gray-100 opacity-80'
-                                        : 'bg-white border-gray-200 hover:shadow-md hover:border-[var(--color-orange)]'
-                                        }`}
-                                >
-                                    <div className="flex justify-between items-start mb-4">
-                                        <span className={`text-sm font-bold uppercase tracking-wider ${day.isRestDay ? 'text-gray-400' : 'text-[var(--color-orange)]'}`}>
-                                            Day {day.day}
-                                        </span>
-                                        {day.isRestDay && <Clock size={16} className="text-gray-400" />}
-                                    </div>
-
-                                    <h3 className={`text-xl font-bold mb-4 ${day.isRestDay ? 'text-gray-500' : 'text-gray-900'}`}>
-                                        {day.title}
-                                    </h3>
-
-                                    {day.sections ? (
-                                        <div className="space-y-6">
-                                            {day.sections.map((section, sIdx) => (
-                                                <div key={sIdx}>
-                                                    <h4 className="text-sm font-bold text-[var(--color-orange)] uppercase tracking-wide mb-3 border-b border-gray-100 pb-1">
-                                                        {section.title}
-                                                    </h4>
-                                                    <ul className="space-y-3">
-                                                        {section.exercises.map((ex, eIdx) => (
-                                                            <li key={eIdx} className="text-sm text-gray-700">
-                                                                <div className="flex justify-between items-start">
-                                                                    <span className="font-medium">{ex.name}</span>
-                                                                    <span className="font-bold text-gray-900 bg-gray-100 px-2 py-0.5 rounded text-xs whitespace-nowrap">
-                                                                        {ex.sets} x {ex.reps}
-                                                                    </span>
-                                                                </div>
-                                                                {ex.notes && (
-                                                                    <p className="text-xs text-gray-500 mt-0.5 italic">
-                                                                        {ex.notes}
-                                                                    </p>
-                                                                )}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            ))}
-                                            {day.challengeLine && (
-                                                <div className="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-100 text-center">
-                                                    <p className="text-sm font-bold text-[var(--color-orange)] italic">
-                                                        "{day.challengeLine}"
-                                                    </p>
-                                                </div>
-                                            )}
-                                        </div>
-                                    ) : !day.isRestDay ? (
-                                        <ul className="space-y-2">
-                                            {day.exercises.map((ex, idx) => (
-                                                <li key={idx} className="text-sm text-gray-600 flex justify-between">
-                                                    <span>{ex.name}</span>
-                                                    <span className="font-medium text-gray-400">{ex.sets} x {ex.reps}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <p className="text-sm text-gray-500 italic">
-                                            Take this time to recover. Light activity only.
-                                        </p>
-                                    )}
-                                </div>
+                                <DayAccordion key={day.day} day={day} defaultOpen={day.day === 1} />
                             ))}
                         </div>
                     </section>
