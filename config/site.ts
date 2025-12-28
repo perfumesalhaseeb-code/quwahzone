@@ -1,0 +1,32 @@
+export const siteConfig = {
+    domain: "https://quwahzone.site/",
+    keywords: [
+        "calisthenics for beginners",
+        "home calisthenics workout",
+        "full body workout",
+        "bodyweight workout at home",
+        "fitness for beginners",
+        "self improvement workout",
+        "daily home workout",
+        "calisthenics",
+        "easy calisthenics at home",
+        "how to start calisthenics at home",
+        "calisthanics for beginners at home",
+        "calisthanics at home",
+        "functional training",
+        "strength training",
+        "fitness",
+        "exercise",
+        "home workout",
+        "body transformation",
+        "anime physique",
+        "workout plan",
+        "workout motivation",
+        "fitness motivation",
+        "fitness journey",
+        "workout routine",
+        "fitness tips",
+        "muscle building",
+        "health and fitness"
+    ]
+};

@@ -1,6 +1,8 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { Facebook, Youtube, Instagram, Pin, Send } from 'lucide-react';
 import Image from 'next/image';
+import { SOCIAL_LINKS } from '@/data/socials';
+
 export default function Footer() {
     return (
         <footer className="py-12 px-6 md:px-20 text-white bg-[var(--color-dark)] border-t border-gray-800">
@@ -25,10 +27,21 @@ export default function Footer() {
 
                 {/* Social Icons */}
                 <div className="flex gap-6">
-                    <FaFacebook size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
-                    <FaTwitter size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
-                    <FaInstagram size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
-                    <FaLinkedin size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
+                    <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer">
+                        <Facebook size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
+                    </a>
+                    <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">
+                        <Youtube size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
+                    </a>
+                    <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer">
+                        <Instagram size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
+                    </a>
+                    <a href={SOCIAL_LINKS.pinterest} target="_blank" rel="noopener noreferrer">
+                        <Pin size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
+                    </a>
+                    <a href={SOCIAL_LINKS.telegram} target="_blank" rel="noopener noreferrer">
+                        <Send size={24} className="cursor-pointer hover:text-[var(--color-orange)] transition-colors" />
+                    </a>
                 </div>
             </div>
 

@@ -1,49 +1,39 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { blogsService, Blog } from "@/libs/SupabaseService";
-import { Calendar, User, ArrowLeft, Eye } from "lucide-react";
+import React from "react";
+import { blogsService } from "@/libs/SupabaseService";
+import { Calendar, Eye, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+import BlogViewCounter from "@/componenets/BlogViewCounter";
 
-export default function BlogDetailsPage() {
-    const { slug } = useParams();
-    const [blog, setBlog] = useState<Blog | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [blogId, setBlogId] = useState<number | null>(null);
+interface Props {
+    params: Promise<{ slug: string }>;
+}
 
-    useEffect(() => {
-        const fetchBlog = async () => {
-            if (!slug) return;
-            try {
-                const data = await blogsService.getBlogBySlug(slug as string);
-                setBlog(data);
-                // setBlogId(data.id);
-                setBlogId(data?.id || null);
-            } catch (error) {
-                console.error("Error fetching blog:", error);
-            } finally {
-                setLoading(false);
-            }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const blog = await blogsService.getBlogBySlug(slug);
+
+    if (!blog) {
+        return {
+            title: "Blog Not Found",
         };
-
-        fetchBlog();
-    }, [slug]);
-
-    useEffect(() => {
-        if (blogId) {
-            blogsService.AddViews(blogId);
-        }
-    }, [blogId]);
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-white">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--color-orange)]"></div>
-            </div>
-        );
     }
+
+    return {
+        title: blog.title,
+        description: blog.description,
+        openGraph: {
+            title: blog.title,
+            description: blog.description,
+            images: [typeof blog.image === 'string' ? blog.image : (blog.image[0] || '')],
+        },
+    };
+}
+
+export default async function BlogDetailsPage({ params }: Props) {
+    const { slug } = await params;
+    const blog = await blogsService.getBlogBySlug(slug);
 
     if (!blog) {
         return (
@@ -57,7 +47,8 @@ export default function BlogDetailsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white text-black pt-32 pb-20 px-4 md:px-8">
+        <div className="min-h-screen bg-white text-black pt-32 pb-20 px-4 md:px-8 w-full overflow-x-hidden">
+            <BlogViewCounter blogId={blog.id || 0} />
             <div className="max-w-4xl mx-auto">
                 <Link
                     href="/blogs"
@@ -82,7 +73,7 @@ export default function BlogDetailsPage() {
                             <span>{blog.views}</span>
                         </div>
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text-gray-900">
+                    <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text-gray-900 break-words">
                         {blog.title}
                     </h1>
                 </div>
@@ -100,7 +91,7 @@ export default function BlogDetailsPage() {
                 )}
 
                 {/* Content */}
-                <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[var(--color-orange)]">
+                <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[var(--color-orange)] break-words overflow-hidden [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-2">
                     <div dangerouslySetInnerHTML={{ __html: blog.content }} />
                 </div>
             </div>

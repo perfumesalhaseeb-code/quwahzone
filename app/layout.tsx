@@ -1,47 +1,42 @@
-"use client"
 import "./globals.css";
-import { useEffect, useState } from "react";
-import Intro from "@/componenets/Intro";
-import Loader from "@/componenets/Loader";
-import { usePathname } from "next/navigation";
+import ClientLayoutWrapper from "@/componenets/ClientLayoutWrapper";
+import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
+
+export const metadata: Metadata = {
+    title: {
+        default: "Quwah Zone - Calisthenics & Fitness",
+        template: "%s | Quwah Zone"
+    },
+    description: "Your ultimate guide to calisthenics, bodyweight workouts, and fitness transformation at home.",
+    keywords: siteConfig.keywords,
+    metadataBase: new URL(siteConfig.domain),
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: siteConfig.domain,
+        title: "Quwah Zone - Calisthenics & Fitness",
+        description: "Your ultimate guide to calisthenics, bodyweight workouts, and fitness transformation at home.",
+        siteName: "Quwah Zone",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Quwah Zone - Calisthenics & Fitness",
+        description: "Your ultimate guide to calisthenics, bodyweight workouts, and fitness transformation at home.",
+    },
+};
 
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const [showIntro, setShowIntro] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const pathname = usePathname();
-
-    useEffect(() => {
-        if (pathname !== '/') {
-            setShowIntro(false);
-        }
-    }, []);
-
-    const handleIntroComplete = () => {
-        setShowIntro(false);
-
-    };
-
-    // Simple global loader simulation for route changes
-    useEffect(() => {
-        setLoading(true);
-        const timer = setTimeout(() => setLoading(false), 500); // Simulate load
-        return () => clearTimeout(timer);
-    }, [pathname]);
-
     return (
         <html lang="en">
-            <body
-                className={`antialiased font-sans`}
-            >
-                {showIntro && pathname === '/' && <Intro onComplete={handleIntroComplete} />}
-                {loading && !showIntro && <Loader />}
-                {/* Only show loader if intro is not showing, to avoid overlap/clutter */}
-
-                {!showIntro && children}
+            <body className={`antialiased font-sans`}>
+                <ClientLayoutWrapper>
+                    {children}
+                </ClientLayoutWrapper>
             </body>
         </html>
     );
