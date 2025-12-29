@@ -49,6 +49,7 @@ export default function Header() {
         { name: "Home", link: "/" },
         { name: "Blogs", link: "/blogs" },
         { name: "Programs", link: "/programs" },
+        { name: "disclaimer", link: "/disclaimer" },
         { name: "About", link: "/about" }
     ];
 
