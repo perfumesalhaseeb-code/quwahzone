@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from '../Button';
 import { FaTimes, FaBars } from "react-icons/fa";
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Define the type for navigation items
 interface NavItem {
@@ -38,7 +39,9 @@ const NavLinks: React.FC<NavLinksProps> = ({ items, isMobile = false, onLinkClic
             </ul>
         </nav>
         <div className={isMobile ? 'mt-8' : 'ml-10'}> {/* Add margin for the button */}
-            <Button text="Apply" onClick={() => { console.log("Apply") }} disabled={false} />
+            <Link href="/contact">
+                <Button text="Apply" onClick={() => { }} disabled={false} />
+            </Link>
         </div>
     </>
 );
@@ -49,7 +52,7 @@ export default function Header() {
         { name: "Home", link: "/" },
         { name: "Blogs", link: "/blogs" },
         { name: "Programs", link: "/programs" },
-        { name: "disclaimer", link: "/disclaimer" },
+        { name: "Disclaimer", link: "/disclaimer" },
         { name: "About", link: "/about" }
     ];
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../Button'
+import Link from 'next/link'
 
 export default function Hero() {
     return (
@@ -20,8 +21,9 @@ export default function Hero() {
                     Whether you're a beginner or a pro, Quwah Zone is your ultimate destination for strength and resilience.
                 </p>
                 <div className="flex gap-4">
-                    <Button text="Start Journey" onClick={() => { console.log("Start Journey") }} disabled={false} />
-
+                    <Link href="/programs">
+                        <Button text="Start Journey" onClick={() => { }} disabled={false} />
+                    </Link>
                 </div>
             </div>
         </div>

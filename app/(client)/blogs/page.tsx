@@ -1,4 +1,5 @@
 import React from "react";
+export const dynamic = 'force-dynamic';
 import { blogsService, CategoryService } from "@/libs/SupabaseService";
 import BlogsPageContent from "@/componenets/BlogsPageContent";
 import { Metadata } from "next";
